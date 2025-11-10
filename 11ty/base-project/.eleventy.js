@@ -1,35 +1,70 @@
 import CleanCSS from "clean-css";
 import { minify } from "terser";
+import fs from "fs";
+import path from "path";
 
 export default (eleventyConfig) => {
-  // Fix file watching in WSL https://www.11ty.dev/docs/watch-serve/#advanced-chokidar-configuration
+  // Fix file watching in WSL
   eleventyConfig.setChokidarConfig({
     usePolling: true,
     interval: 500,
   });
 
-  // CSS minification
-  eleventyConfig.addTransform("cssmin", function(content) {
-    if (this.page.outputPath && this.page.outputPath.endsWith(".css")) {
-      return new CleanCSS({}).minify(content).styles;
-    }
-    return content;
+  eleventyConfig.addTemplateFormats("css");
+  eleventyConfig.addExtension("css", {
+    outputFileExtension: "css",
+    compile: async function (inputContent, inputPath) {
+      if (inputPath.startsWith("./src/styles/")) {
+        return async () => {
+          const result = new CleanCSS({
+            inline: ["local"],
+            rebaseTo: path.dirname(inputPath),
+          }).minify([inputPath]);
+
+          if (result.errors && result.errors.length > 0) {
+            console.error("CleanCSS errors:", result.errors);
+          }
+
+          return result.styles;
+        };
+      }
+      return async () => inputContent;
+    },
+    compileOptions: {
+      permalink: function (inputContent, inputPath) {
+        if (inputPath.startsWith("./src/styles/")) {
+          return (data) => inputPath.replace("./src/styles/", "styles/");
+        }
+        return false;
+      },
+    },
   });
 
-  // JS minification
-  eleventyConfig.addTransform("jsmin", async function(content) {
-    if (this.page.outputPath && this.page.outputPath.endsWith(".js")) {
-      const minified = await minify(content);
-      return minified.code;
-    }
-    return content;
+  eleventyConfig.addTemplateFormats("js");
+  eleventyConfig.addExtension("js", {
+    outputFileExtension: "js",
+    compile: async function (inputContent, inputPath) {
+      if (inputPath.startsWith("./src/scripts/")) {
+        return async () => {
+          const minified = await minify(inputContent);
+          return minified.code || inputContent;
+        };
+      }
+      return async () => inputContent;
+    },
+    compileOptions: {
+      permalink: function (inputContent, inputPath) {
+        if (inputPath.startsWith("./src/scripts/")) {
+          return (data) => inputPath.replace("./src/scripts/", "scripts/");
+        }
+        return false;
+      },
+    },
   });
 
   eleventyConfig.addPassthroughCopy("images");
   eleventyConfig.addPassthroughCopy("libs");
-  eleventyConfig.addPassthroughCopy({"src/scripts": "scripts"});
-  eleventyConfig.addPassthroughCopy({"src/styles": "styles"});
-  
+
   eleventyConfig.addWatchTarget("src/scripts/");
   eleventyConfig.addWatchTarget("src/styles/");
 
@@ -38,9 +73,9 @@ export default (eleventyConfig) => {
       input: ".",
       output: "_site",
       includes: "_includes",
-      data: "_data"
+      data: "_data",
     },
-    templateFormats: ["html", "njk"],
-    htmlTemplateEngine: "njk"
+    templateFormats: ["html", "njk", "css", "js"],
+    htmlTemplateEngine: "njk",
   };
-}
+};
