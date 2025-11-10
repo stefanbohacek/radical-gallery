@@ -1,0 +1,20 @@
+---
+layout: layout.njk
+---
+
+<main class="w-100 mx-auto p-1">
+  <h1 class="text-center">{{ site.title }}</h1>
+  <div id="gallery" class="pswp-gallery pswp-gallery--single-column">
+    {% for image in images %}
+      <div class="pswp-gallery__item">
+        <a href="{{ image.src }}" data-pswp-width="{{ image.width }}" data-pswp-height="{{ image.height }}" target="_blank">
+          <img src="{{ image.src }}" title="{{ image.title }}" alt="{{ image.alt }}"/>
+          <div class="pswp-caption-content">
+            {{ image.caption | safe }}
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</main>
+<footer class="p-1 text-center"></footer>

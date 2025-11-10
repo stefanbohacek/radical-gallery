@@ -1,0 +1,10 @@
+[
+  {
+    "src": "images/gallery/example.png",
+    "width": 736,
+    "height": 1084,
+    "title": "Image title",
+    "alt": "A short description of what's in the image for users of screen readers.",
+    "caption": "More details about the image, like source, or copyright information."
+  }
+]

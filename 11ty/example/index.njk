@@ -1,0 +1,42 @@
+---
+layout: layout.njk
+---
+
+<main class="w-100 mx-auto p-1">
+  <h1 class="text-center">{{ site.title }}</h1>
+  <blockquote>
+    <p>Protest art itself doesn't create change, but it aims to embolden and galvanize enough people across socio-economic
+      backgrounds to mobilize for a cause.</p>
+    <footer>—Deva Pardue, graphic designer</footer>
+  </blockquote>
+  <p>
+    <a href="https://en.wikipedia.org/wiki/Protest_art">Protest art</a>
+    is an important tool of activists and social movements. It can inform and inspire. It comes in a variety of shapes and
+    forms: signs, banners, posters, and other printed or hand-made material.
+  </p>
+  <p>
+    These are just few powerful examples.
+  </p>
+  <div id="gallery" class="pswp-gallery pswp-gallery--single-column">
+    {% for image in images %}
+      <div class="pswp-gallery__item">
+        <a href="{{ image.src }}" data-pswp-width="{{ image.width }}" data-pswp-height="{{ image.height }}" target="_blank">
+          <img src="{{ image.src }}" title="{{ image.title }}" alt="{{ image.alt }}"/>
+          <div class="pswp-caption-content">
+            {{ image.caption | safe }}
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</main>
+<footer class="p-1 text-center">
+  <p>Created by
+    <a href="https://stefanbohacek.com/" rel="me">Stefan Bohacek</a>
+    using
+    <a href="https://photoswipe.com/">Photoswipe</a>
+    and hosted on
+    <a href="https://neocities.org/">neocities.org</a>.
+    <a href="https://stefanbohacek.com/blog/making-a-free-image-gallery-with-neocities-org/">Make your own.</a>
+  </p>
+</footer>

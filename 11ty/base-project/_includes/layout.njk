@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if site.social and site.social.fediverse %}
+      <meta name="fediverse:creator" content="{{ site.social.fediverse }}"/>
+    {% endif %}
+    <link rel="stylesheet" href="/libs/photoswipe/5.4.4/photoswipe.css">
+    <link rel="stylesheet" href="/libs/photoswipe-dynamic-caption/1.2.7/photoswipe-dynamic-caption-plugin.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <title>{{ site.title }}</title>
+  </head>
+  <body>
+    {{ content | safe }}
+    <script type="module" src="/scripts/main.js"></script>
+  </body>
+</html>

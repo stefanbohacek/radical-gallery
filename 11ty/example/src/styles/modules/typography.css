@@ -1,0 +1,19 @@
+body {
+  font-family: system-ui, sans-serif;
+  font-weight: normal;
+  text-wrap: pretty;
+  font-size: 1.2rem;
+  line-height: 1.7rem;
+}
+
+blockquote {
+  margin: 3rem 0;
+  font-style: italic;
+  font-size: 1.8rem;
+}
+
+blockquote footer {
+  font-style: normal;
+  font-size: 1.2rem;
+  text-align: right;
+}
