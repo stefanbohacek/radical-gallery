@@ -15,4 +15,4 @@ Follow the tutorial [on my blog](https://stefanbohacek.com/blog/making-a-free-im
 
 ## 11ty Version
 
-See the [11ty](https://github.com/stefanbohacek/radical-gallery/tree/main/11ty) folder in this repo and follow [this tutorial](TBD).
+See the [11ty](https://github.com/stefanbohacek/radical-gallery/tree/main/11ty) folder in this repo and follow [this tutorial](https://stefanbohacek.com/blog/making-a-free-image-gallery-with-11ty-and-neocities-org/).
