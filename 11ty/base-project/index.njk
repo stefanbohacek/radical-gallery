@@ -8,7 +8,7 @@ layout: layout.njk
     {% for image in images %}
       <div class="pswp-gallery__item">
         <a href="{{ image.src }}" data-pswp-width="{{ image.width }}" data-pswp-height="{{ image.height }}" target="_blank">
-          <img src="{{ image.src }}" title="{{ image.title }}" alt="{{ image.alt }}"/>
+          <img loading="lazy" src="{{ image.src }}" title="{{ image.title }}" alt="{{ image.alt }}"/>
           <div class="pswp-caption-content">
             {{ image.caption | safe }}
           </div>
